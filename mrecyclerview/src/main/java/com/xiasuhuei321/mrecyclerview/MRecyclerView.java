@@ -103,7 +103,7 @@ public class MRecyclerView extends RecyclerView {
         public void onBindViewHolder(ViewHolder holder, int position) {
             if (position == 0 || position <= getHeadViewCount()) return;
             // 传入正确的position
-            int adjPosition = position - (getHeadViewCount());
+            int adjPosition = position - (getHeadViewCount()) - 1;
             if (adjPosition < adapter.getItemCount())
                 adapter.onBindViewHolder(holder, adjPosition);
         }

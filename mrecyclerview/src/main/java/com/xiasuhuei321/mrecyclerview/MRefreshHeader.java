@@ -110,9 +110,10 @@ public class MRefreshHeader implements RefreshHeader {
                     rotate.start();
                     rotateDown = false;
                 }
-            } else {
-                releaseToRefresh = false;
             }
+//            else {
+//                releaseToRefresh = false;
+//            }
         } else {
             if (rotateUp) {
                 rotateDown = true;
