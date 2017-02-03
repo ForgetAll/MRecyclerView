@@ -157,7 +157,8 @@ public class MRefreshHeader implements RefreshHeader {
         }
         releaseToRefresh = false;
         refreshText.setText("下拉刷新");
-
+        smoothScrollTo(0);
+        setNormalMode();
     }
 
     public void setNormalMode(){

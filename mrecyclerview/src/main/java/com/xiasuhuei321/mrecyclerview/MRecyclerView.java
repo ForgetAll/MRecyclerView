@@ -33,6 +33,8 @@ public class MRecyclerView extends RecyclerView {
 
     private float mLastY = -1;
 
+    private OnRefreshListener l;
+
     public MRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.mContext = context;
@@ -197,8 +199,12 @@ public class MRecyclerView extends RecyclerView {
             default:
                 mLastY = -1;
                 if (mRefreshHeader.isReleaseToRefresh()) {
-                    if (!mRefreshHeader.isRefreshing())
+                    if (!mRefreshHeader.isRefreshing()) {
                         mRefreshHeader.onRefresh();
+                        if(l != null){
+                            l.onRefresh();
+                        }
+                    }
                 } else {
                     if(!mRefreshHeader.isRefreshing()){
                         mRefreshHeader.smoothScrollTo(0);
@@ -212,10 +218,27 @@ public class MRecyclerView extends RecyclerView {
         return super.onTouchEvent(e);
     }
 
+    public void refreshComplete(){
+        mRefreshHeader.refreshComplete();
+    }
+
+    public void onRefresh(){
+        mRefreshHeader.smoothScrollTo(mRefreshHeader.getMeasuredHeight());
+        mRefreshHeader.onRefresh();
+    }
+
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         mHeadViewList.clear();
+    }
+
+    public interface OnRefreshListener{
+        void onRefresh();
+    }
+
+    public void setOnRefreshListener(OnRefreshListener l){
+        this.l = l;
     }
 }
